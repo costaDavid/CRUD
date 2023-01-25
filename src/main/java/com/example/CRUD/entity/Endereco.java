@@ -19,9 +19,6 @@ public class Endereco implements Serializable {
     private Integer cep;
     private Integer numero;
 
-    @ManyToMany(mappedBy = "endereco" )
-    private Set<Pessoa> pessoas = new HashSet<>();
-
     public Endereco(){
 
     }
@@ -59,14 +56,6 @@ public class Endereco implements Serializable {
 
     public void setNumero(Integer numero) {
         this.numero = numero;
-    }
-
-    public Set<Pessoa> getPessoas() {
-        return pessoas;
-    }
-
-    public void setPessoas(Set<Pessoa> pessoas) {
-        this.pessoas = pessoas;
     }
 
     @Override

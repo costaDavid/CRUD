@@ -17,19 +17,13 @@ public class Pessoa implements Serializable {
     private Long id;
 
     private String nome;
-    private Date dataNascimento;
-
-    @ManyToMany
-    @JoinTable(name = "tb_pessoa_endereco",
-            joinColumns = @JoinColumn(name = "pessoa_id"),
-            inverseJoinColumns = @JoinColumn(name = "endereco_id"))
-    Set<Endereco> endereco = new HashSet<>();
+    private String dataNascimento;
 
     public Pessoa(){
 
     }
 
-    public Pessoa(Long id, String nome, Date dataNascimento) {
+    public Pessoa(Long id, String nome, String dataNascimento) {
         this.id = id;
         this.nome = nome;
         this.dataNascimento = dataNascimento;
@@ -47,20 +41,12 @@ public class Pessoa implements Serializable {
         this.nome = nome;
     }
 
-    public Date getDataNascimento() {
+    public String getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(Date dataNascimento) {
+    public void setDataNascimento(String dataNascimento) {
         this.dataNascimento = dataNascimento;
-    }
-
-    public Set<Endereco> getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(Set<Endereco> endereco) {
-        this.endereco = endereco;
     }
 
     @Override
