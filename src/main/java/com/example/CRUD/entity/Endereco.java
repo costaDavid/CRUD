@@ -19,6 +19,12 @@ public class Endereco implements Serializable {
     private Integer cep;
     private Integer numero;
 
+    @ManyToMany
+    @JoinTable(name = "tb_endereco_pessoa",
+            joinColumns = @JoinColumn(name = "endereco_id"),
+            inverseJoinColumns = @JoinColumn(name = "pessoa_id"))
+    Set<Pessoa> pessoa = new HashSet<>();
+
     public Endereco(){
 
     }
@@ -56,6 +62,10 @@ public class Endereco implements Serializable {
 
     public void setNumero(Integer numero) {
         this.numero = numero;
+    }
+
+    public Set<Pessoa> getPessoa() {
+        return pessoa;
     }
 
     @Override

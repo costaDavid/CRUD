@@ -1,8 +1,12 @@
 package com.example.CRUD.dto;
 
 import com.example.CRUD.entity.Endereco;
+import com.example.CRUD.entity.Pessoa;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 public class EnderecoDTO implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -11,6 +15,8 @@ public class EnderecoDTO implements Serializable {
     private String logradouro;
     private Integer cep;
     private Integer numero;
+
+    private List<PessoaDTO> pessoas = new ArrayList<>();
 
     public EnderecoDTO(){
 
@@ -28,6 +34,11 @@ public class EnderecoDTO implements Serializable {
         this.logradouro = logradouro;
         this.cep = cep;
         this.numero = numero;
+    }
+
+    public EnderecoDTO(Endereco entidade, Set<Pessoa> pessoa){
+        this(entidade);
+        pessoa.forEach(pess-> this.pessoas.add(new PessoaDTO(pess)));
     }
 
     public Long getId() {
@@ -56,5 +67,13 @@ public class EnderecoDTO implements Serializable {
 
     public void setNumero(Integer numero) {
         this.numero = numero;
+    }
+
+    public List<PessoaDTO> getPessoas() {
+        return pessoas;
+    }
+
+    public void setPessoas(List<PessoaDTO> pessoas) {
+        this.pessoas = pessoas;
     }
 }

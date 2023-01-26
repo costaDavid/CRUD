@@ -19,6 +19,9 @@ public class Pessoa implements Serializable {
     private String nome;
     private String dataNascimento;
 
+    @ManyToMany(mappedBy = "pessoa")
+    private Set<Endereco> endereco = new HashSet<>();
+
     public Pessoa(){
 
     }
@@ -47,6 +50,10 @@ public class Pessoa implements Serializable {
 
     public void setDataNascimento(String dataNascimento) {
         this.dataNascimento = dataNascimento;
+    }
+
+    public Set<Endereco> getEndereco() {
+        return endereco;
     }
 
     @Override
