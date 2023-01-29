@@ -13,7 +13,8 @@ import java.util.List;
 @Repository
 public interface EnderecoRepository extends JpaRepository<Endereco, Long> {
 
-    @Query("SELECT DISTINCT e FROM Endereco e INNER JOIN e.pessoa pess WHERE "
-            + "(COALESCE(:pessoas) IS NULL OR pess IN :pessoas) ")
-    Page<Endereco> buscarEnderecoPorPessoa(List<Pessoa> pessoas, Pageable pageable);
+    @Query("SELECT DISTINCT e FROM Endereco e INNER JOIN e.pessoa p WHERE "
+            + "(COALESCE(:pessoas) IS NULL OR p IN :pessoas) AND "
+            + "(LOWER(e.logradouro) LIKE LOWER(CONCAT('%',:nomeEndereco,'%'))) ")
+    Page<Endereco> buscarEnderecoPorPessoa(List<Pessoa> pessoas, String nomeEndereco, Pageable pageable);
 }

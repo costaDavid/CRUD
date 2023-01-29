@@ -35,9 +35,9 @@ public class EnderecoService {
     }
 
     @Transactional
-    public Page<EnderecoDTO> listarEnderecosPorPessoa(Long pessoaId, PageRequest pageRequest){
+    public Page<EnderecoDTO> listarEnderecosPorPessoa(Long pessoaId, String nomeEndereco, PageRequest pageRequest){
         List<Pessoa> pessoas = (pessoaId == 0) ? null : Arrays.asList(pessoaRepository.getOne(pessoaId));
-        Page<Endereco> page = enderecoRepository.buscarEnderecoPorPessoa(pessoas, pageRequest);
+        Page<Endereco> page = enderecoRepository.buscarEnderecoPorPessoa(pessoas, nomeEndereco, pageRequest);
         return page.map(x-> new EnderecoDTO(x, x.getPessoa()));
     }
 

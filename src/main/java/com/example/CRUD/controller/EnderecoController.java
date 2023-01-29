@@ -29,9 +29,10 @@ public class EnderecoController {
         return ResponseEntity.created(uri).body(enderecoDTO);
     }
 
-    @GetMapping(value = "/pessoa")
+    @GetMapping(value = "/buscar")
     public ResponseEntity<Page<EnderecoDTO>> listarEnderecosPessoa(
             @RequestParam(value = "pessoaId", defaultValue = "0") Long pessoaId,
+            @RequestParam(value = "nomeEndereco", defaultValue = "") String nomeEndereco,
             @RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
             @RequestParam(value = "direction", defaultValue = "ASC") String direction,
@@ -39,7 +40,7 @@ public class EnderecoController {
     ){
 
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
-        Page<EnderecoDTO> list = enderecoService.listarEnderecosPorPessoa(pessoaId, pageRequest);
+        Page<EnderecoDTO> list = enderecoService.listarEnderecosPorPessoa(pessoaId, nomeEndereco.trim(), pageRequest);
         return ResponseEntity.ok().body(list);
     }
 }
