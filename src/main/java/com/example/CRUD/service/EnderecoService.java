@@ -34,17 +34,24 @@ public class EnderecoService {
         return new EnderecoDTO(entidade);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public Page<EnderecoDTO> listarEnderecosPorPessoa(Long pessoaId, String nomeEndereco, PageRequest pageRequest){
         List<Pessoa> pessoas = (pessoaId == 0) ? null : Arrays.asList(pessoaRepository.getOne(pessoaId));
         Page<Endereco> page = enderecoRepository.buscarEnderecoPorPessoa(pessoas, nomeEndereco, pageRequest);
         return page.map(x-> new EnderecoDTO(x, x.getPessoa()));
     }
 
+    @Transactional(readOnly = true)
+    public List<EnderecoDTO> listarTodosEnderecos(){
+        List<Endereco> list = enderecoRepository.findAll();
+        return list.stream().map(x-> new EnderecoDTO(x, x.getPessoa())).collect(Collectors.toList());
+    }
+
     private void copiarDadosEndereco(EnderecoDTO enderecoDTO, Endereco endereco){
         endereco.setCep(enderecoDTO.getCep());
         endereco.setLogradouro(enderecoDTO.getLogradouro());
         endereco.setNumero(enderecoDTO.getNumero());
+        endereco.setCidade(enderecoDTO.getCidade());
 
         endereco.getPessoa().clear();
         for(PessoaDTO pessoaDTO : enderecoDTO.getPessoas()){

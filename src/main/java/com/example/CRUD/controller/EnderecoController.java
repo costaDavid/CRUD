@@ -1,6 +1,7 @@
 package com.example.CRUD.controller;
 
 import com.example.CRUD.dto.EnderecoDTO;
+import com.example.CRUD.entity.Endereco;
 import com.example.CRUD.service.EnderecoService;
 import com.example.CRUD.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,12 @@ public class EnderecoController {
 
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
         Page<EnderecoDTO> list = enderecoService.listarEnderecosPorPessoa(pessoaId, nomeEndereco.trim(), pageRequest);
+        return ResponseEntity.ok().body(list);
+    }
+
+    @GetMapping(value = "/buscarTodos")
+    public ResponseEntity<List<EnderecoDTO>> buscarTodosEnderecos(){
+        List<EnderecoDTO> list = enderecoService.listarTodosEnderecos();
         return ResponseEntity.ok().body(list);
     }
 }

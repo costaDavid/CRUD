@@ -13,6 +13,7 @@ public class EnderecoDTO implements Serializable {
 
     private Long id;
     private String logradouro;
+    private String cidade;
     private Integer cep;
     private Integer numero;
 
@@ -27,6 +28,7 @@ public class EnderecoDTO implements Serializable {
         this.logradouro = entity.getLogradouro();
         this.cep = entity.getCep();
         this.numero = entity.getNumero();
+        this.cidade = entity.getCidade();
     }
 
     public EnderecoDTO(Long id, String logradouro, Integer cep, Integer numero) {
@@ -34,6 +36,7 @@ public class EnderecoDTO implements Serializable {
         this.logradouro = logradouro;
         this.cep = cep;
         this.numero = numero;
+        this.cidade = cidade;
     }
 
     public EnderecoDTO(Endereco entidade, Set<Pessoa> pessoa){
@@ -75,5 +78,13 @@ public class EnderecoDTO implements Serializable {
 
     public void setPessoas(List<PessoaDTO> pessoas) {
         this.pessoas = pessoas;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
     }
 }
